@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Distance Converter</title>
+    <style>
+        label, input {
+            display: inline-block;
+            width: 5em;
+        }
+
+        label {
+            text-align: right;
+        }
+    </style>
+</head>
+<body onload="attachEventsListeners()">
+<h1>Distance Converter</h1>
+<div>
+    <label for="inputDistance">From:</label>
+    <input type="text" id="inputDistance">
+    <select id="inputUnits">
+        <option value="km">Kilometers</option>
+        <option value="m">Meters</option>
+        <option value="cm">Centimeters</option>
+        <option value="mm">Millimeters</option>
+        <option value="mi">Miles</option>
+        <option value="yrd">Yards</option>
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+    </select>
+    <input type="button" id="convert" value="Convert">
+</div>
+<div>
+    <label for="outputDistance">To:</label>
+    <input type="text" id="outputDistance" disabled="disabled">
+    <select id="outputUnits">
+        <option value="km">Kilometers</option>
+        <option value="m">Meters</option>
+        <option value="cm">Centimeters</option>
+        <option value="mm">Millimeters</option>
+        <option value="mi">Miles</option>
+        <option value="yrd">Yards</option>
+        <option value="ft">Feet</option>
+        <option value="in">Inches</option>
+    </select>
+    <script>
+        function attachEventsListeners() {
+            let btn = document.getElementById('convert');
+            btn.addEventListener('click', function () {
+                let value = document.getElementById('inputDistance');
+                value = value.value;
+
+                let e = document.getElementById("inputUnits");
+                let from = e.options[e.selectedIndex];
+                from = from.value;
+                let eop = document.getElementById("outputUnits");
+                let to = eop.options[eop.selectedIndex];
+                to=to.value;
+                let convert = 0;
+
+                if (from === "km") {
+                    convert = value;
+
+                } else if (from === "m") {
+                    convert = value / 1000;
+
+
+                } else if (from === "cm") {
+                    convert = value / 100000;
+
+
+                } else if (from === "mm") {
+                    convert = value / 1000000;
+
+
+                } else if (from === "mi") {
+                    convert = value / 0.62137;
+
+
+                } else if (from === "yrd") {
+                    convert = value / 1093.6;
+
+
+                } else if (from === "ft") {
+                    convert = value / 3280.8;
+                } else if (from === "in") {
+                    convert = value / 39370;
+
+                }
+
+                let res=0;
+                if(to==="km"){
+                   res=convert;
+
+                }else if(to ==='m'){
+                    res=convert*1000;
+                }else if(to ==='cm'){
+                    res=convert*100000;
+
+                }else if(to ==='mm'){
+                    res=convert*1000000;
+
+                }else if(to ==='mi'){
+                    res=convert*0.62137;
+
+                }else if(to ==='yrd'){
+                    res=convert*1093.6;
+
+                }else if(to ==='ft'){
+                    res=convert*3280.8;
+
+                }else if(to ==='in'){
+                    res=convert*39370;
+
+                }
+
+                let output=document.getElementById('outputDistance');
+                 output.value=res;
+
+            });
+
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries Table</title>
+    <style>
+        td, th {
+            background: #DDD;
+            padding: 5px 10px
+        }
+
+        input[type='text'] {
+            width: 60px
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<table id="countriesTable">
+    <tr>
+        <th>Country</th>
+        <th>Capital</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <td><input type="text" id="newCountryText"/></td>
+        <td><input type="text" id="newCapitalText"/></td>
+        <td><a href="#" id="createLink">[Create]</a></td>
+    </tr>
+</table>
+<script>
+    $(() => initializeTable());
+    function initializeTable() {
+        $('#createLink').on('click', createCountry);
+        addCountry('Bulgaria', 'Sofia');
+        addCountry('Germany', 'Berlin');
+        addCountry('Russia', 'Moscow');
+        fixRowLinks();
+
+        function addCountry(country, capital) {
+            let tr = $('<tr>')
+                .append($('<td>').text(country))
+                .append($('<td>').text(capital))
+                .append($('<td>')
+                    .append($('<a href="#">[Up]</a>').on('click', moveUp))
+                    .append($('<a href="#">[Down]</a>').on('click', moveDown))
+                    .append($('<a href="#">[Delete]</a>').on('click', deleteRow)));
+
+            tr.appendTo($('#countriesTable'));
+        }
+
+
+        function createCountry() {
+            let country = $('#newCountryText').val();
+            let capital = $('#newCapitalText').val();
+            addCountry(country, capital);
+            $('#newCountryText').val("");
+            $('#newCapitalText').val("");
+            fixRowLinks();
+        }
+
+        function deleteRow() {
+            $(this).parent().parent().fadeOut(function () {
+                $(this).remove();
+                fixRowLinks();
+            });
+
+        }
+
+        function moveUp() {
+            let row = $(this).parent().parent();
+            row.fadeOut(function () {///izcheva fadeOut
+               // row.prev().before(row);
+                row.insertBefore(row.prev());
+                row.fadeIn();//pokazva se fadeIn
+                fixRowLinks();
+            });
+        }
+
+        function moveDown() {
+            let row = $(this).parent().parent();
+
+            row.fadeOut(function () {//izcheva fadeOut,pokazva se fadeIn
+               // row.next().after(row);
+                row.insertAfter(row.next());
+                row.fadeIn();
+                fixRowLinks();
+            });
+        }
+
+        function fixRowLinks() {
+            $('#countriesTable a').css('display', 'inline');
+            console.log($('#countriesTable tr:nth-child(3)').text());
+            console.log($('#countriesTable tr:last-child ').text());
+            $('#countriesTable tr:nth-child(3) td a:contains("Up")').css('display', 'none');
+            $('#countriesTable tr:last-child td a:contains("Down")').css('display', 'none');
+        }
+    }
+
+
+</script>
+</body>
+</html>

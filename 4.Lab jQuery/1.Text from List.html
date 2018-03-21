@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text from List</title>
+    <script src="../jquery-3.3.1.js"></script>
+
+</head>
+<body>
+<ul id="items">
+    <li>first item</li>
+    <li>second item</li>
+    <li>third item</li>
+</ul>
+<button onclick="extractText()">
+    Extract Text</button>
+<div id="result"></div>
+<script>
+    function extractText() {
+        $('#result').text($('#items').find('li').toArray().map(el=>$(el).text()).join(", "));
+
+    }
+
+</script>
+</body>
+</html>
+<!--function extractText() {-->
+<!--$(document).ready(function () {-->
+<!--$("body *").click(function (event) {-->
+<!--$(this).fadeOut();-->
+<!--$(document.body).append(-->
+<!--"Removed: "+$(this).text()+$(this)+"<br>\n");-->
+<!--event.preventDefalt();-->
+<!--event.stopPropagation();-->
+<!--});-->
+
+<!--});-->
+
+<!--}-->
